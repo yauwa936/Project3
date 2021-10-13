@@ -26,3 +26,13 @@ proving they have delivered public goods.
   - control payout
 - **Verifier**
   - verify the public goods delivered
+
+## Resources
+
+- [OpenZeppelin Governance Library](https://docs.openzeppelin.com/contracts/4.x/api/governance)
+- [Reality.eth Smart Contract Oracle](https://reality.eth.link/app/docs/html/contracts.html)
+- [Gnosis Safe for Assets Management](https://gnosis-safe.io/developers)
+- [Gnosis Zodiac Reality Module](https://gnosis.github.io/zodiac/docs/tutorial-module-reality/tech-guide)
+- [Aragon Developer Doc](https://aragon.org/developers)
+- [Clr.fund](https://github.com/clrfund/maci)
+- [Gitcoin](https://github.com/gitcoinco/governance-docs)
