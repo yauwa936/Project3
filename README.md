@@ -36,3 +36,12 @@ proving they have delivered public goods.
 - [Aragon Developer Doc](https://aragon.org/developers)
 - [Clr.fund](https://github.com/clrfund/maci)
 - [Gitcoin](https://github.com/gitcoinco/governance-docs)
+- [Uniswap create a new pool](https://github.com/Uniswap/v3-core/blob/main/contracts/interfaces/IUniswapV3Factory.sol)
+
+## Checklist
+
+- [x] Project token generator
+- [ ] Pre-sale function?
+- [ ] Governing: Payout per deliverables
+- [ ] One-Click add project token to Uniswap
+- [ ] Check current price on Uniswap
