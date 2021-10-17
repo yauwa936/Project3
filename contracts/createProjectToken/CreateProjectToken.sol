@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import "./TokenERC20.sol";
+import "./tokenERC20.sol";
 
 contract CreateProjectToken {
     IERC20[] public erc20s;
