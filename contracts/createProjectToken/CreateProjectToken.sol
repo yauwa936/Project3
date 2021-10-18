@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+
 import "./tokenERC20.sol";
 
 contract CreateProjectToken {
     IERC20[] public erc20s;
-    GnosisSafe public safe; 
+    // GnosisSafe public safe; 
 
     function createProjectToken(
         string memory _name,
