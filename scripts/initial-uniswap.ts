@@ -3,7 +3,7 @@ import { Address } from "cluster";
 
 const provider = new ethers.providers.JsonRpcProvider("<YOUR_ENDPOINT_HERE>");
 
-const poolAddress = "0x8ad599c3A0ff1De082011EFDDc58f1908eb6e6D8";
+const poolAddress = "0x1F98431c8aD98523631AE4a59f267346ea31F984";
 
 const poolImmutablesAbi = [
   "function factory() external view returns (address)",

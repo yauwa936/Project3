@@ -41,6 +41,7 @@ proving they have delivered public goods.
 ## Checklist
 
 - [x] Project token generator
+- [ ] issue NFT to token buyer
 - [ ] Pre-sale function?
 - [ ] Governing: Payout per deliverables
 - [ ] One-Click add project token to Uniswap
