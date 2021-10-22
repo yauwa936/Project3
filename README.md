@@ -70,4 +70,5 @@ proving they have delivered public goods.
 3. in new terminal:
 4. cd Dapp
 5. cd app
-6. yarn run start
+6. truffle deploy
+7. yarn run start
