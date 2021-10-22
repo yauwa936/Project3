@@ -41,7 +41,34 @@ proving they have delivered public goods.
 ## Checklist
 
 - [x] Project token generator
+- [ ] issue NFT to token buyer
 - [ ] Pre-sale function?
 - [ ] Governing: Payout per deliverables
 - [ ] One-Click add project token to Uniswap
 - [ ] Check current price on Uniswap
+
+## Run the Dapp in local environment
+
+### First time install
+
+1. cd Dapp
+2. npm install -g truffle
+3. truffle develop
+4. inside truffle develop:
+5. compile
+6. migrate
+7. now create a new terminal
+8. cd Dapp
+9. cd app
+10. yarn install
+11. yarn run start
+
+### After first time install
+
+1. cd Dapp
+2. truffle develop
+3. in new terminal:
+4. cd Dapp
+5. cd app
+6. truffle deploy
+7. yarn run start
