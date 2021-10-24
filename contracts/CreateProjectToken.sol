@@ -20,4 +20,12 @@ contract CreateProjectToken {
     function getProjectTokenAddress() external view returns (IERC20[] memory) {
         return erc20s;
     }
+
+    function mint(address to, uint256 amount) public {
+        ERC20._mint(to, amount);
+    }
+
+    function snapshot() public {
+        snapshot();
+    }
 }

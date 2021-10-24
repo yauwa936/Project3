@@ -3,9 +3,6 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-//
-// Greeter deployed to: 0x5FbDB2315678afecb367f032d93F642f64180aa3
-// CreateProjectToken deployed to: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
 
 const hre = require("hardhat");
 
@@ -17,7 +14,7 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  // We get the contract to deploy
+  // Deploy CreateProjectToken Contract
   const CreateProjectToken = await hre.ethers.getContractFactory(
     "CreateProjectToken"
   );
@@ -25,6 +22,15 @@ async function main() {
 
   await createProjectToken.deployed();
   console.log("CreateProjectToken deployed to:", createProjectToken.address);
+
+  // Deploy BurnableToken Contract
+  const CreateBurnableToken = await hre.ethers.getContractFactory(
+    "CreateBurnableToken"
+  );
+  const createBurnableToken = await CreateBurnableToken.deploy();
+
+  await createBurnableToken.deployed();
+  console.log("CreateBurnableToken deployed to:", createBurnableToken.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

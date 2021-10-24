@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { ethers } from "ethers";
 import { hasEthereum } from "../utils/ethereum";
 import CreateProjectToken from "../src/artifacts/contracts/CreateProjectToken.sol/CreateProjectToken.json";
+import CreateBurnableToken from "../src/artifacts/contracts/CreateBurnableToken.sol/CreateBurnableToken.json";
 
 export default function Home() {
   const [setPTAddress, setPTAddressState] = useState("");
@@ -17,6 +18,20 @@ export default function Home() {
   const newPTInputRef = useRef();
   const PTSymbolInputRef = useRef();
   const PTTotalSupplyInputRef = useRef();
+  const [setBTAddress, setBTAddressState] = useState("");
+  const [newBT, setNewBTState] = useState("");
+  const [BTSymbol, setBTSymbolState] = useState("");
+  const [BTTotalSupply, setBTTotalSupplyState] = useState("");
+  const [BTBurnAmount, setBTBurnAmountState] = useState("");
+  const [newBTMessage, setNewBTMessageState] = useState("");
+  const [BTSymbolMessage, setBTSymbolMessageState] = useState("");
+  const [BTTotalSupplyMessage, setBTTotalSupplyMessageState] = useState("");
+  const [BTBurnAmountMessage, setBTBurnAmountMessageState] = useState("");
+  const newBTInputRef = useRef();
+  const BTSymbolInputRef = useRef();
+  const BTTotalSupplyInputRef = useRef();
+  const BTBurnAmountInputRef = useRef();
+  
 
   // If wallet is already connected...
   useEffect(() => {
@@ -41,6 +56,85 @@ export default function Home() {
   // Request access to MetaMask account
   async function requestAccount() {
     await window.ethereum.request({ method: "eth_requestAccounts" });
+  }
+
+  // Call burnable token contract, fetch current value
+  async function fetchBurnableTokenAddress() {
+    if (!hasEthereum()) {
+      setConnectedWalletAddressState(`MetaMask unavailable`);
+      return;
+    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contract = new ethers.Contract(
+      process.env.NEXT_PUBLIC_CREATEBURNABLETOKEN_ADDRESS,
+      CreateBurnableToken.abi,
+      provider
+    );
+    try {
+      const data = await contract.getBurnableTokenAddress();
+      setBTAddressState(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // Call burnable token contract, create new burnable token
+  async function setBurnableToken() {
+    if (!hasEthereum()) {
+      setConnectedWalletAddressState(`MetaMask unavailable`);
+      return;
+    }
+    if (!newBT) {
+      setNewBTMessageState("Please add a token name");
+      return;
+    }
+
+    if (!BTSymbol) {
+      setBTSymbolMessageState("Please add a token symbol");
+      return;
+    }
+
+    if (!BTTotalSupply) {
+      setBTTotalSupplyMessageState("Please add a token supply");
+      return;
+    }
+
+    if (!BTBurnAmount) {
+      setBTBurnAmountMessageState("Please add a token burn amount");
+      return;
+    }
+
+    await requestAccount();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    const web3 = require("web3");
+    const amount = web3.utils.toWei(BTTotalSupply, "ether");
+    const burnAmount = web3.utils.toWei(BTBurnAmount, "ether");
+    setConnectedWalletAddressState(`Connected wallet: ${signerAddress}`);
+    const contract = new ethers.Contract(
+      process.env.NEXT_PUBLIC_CREATEBURNABLETOKEN_ADDRESS,
+      CreateBurnableToken.abi,
+      signer
+    );
+    const transaction = await contract.createBurnableToken(
+      newBT,
+      BTSymbol,
+      amount,
+      burnAmount
+    );
+    await transaction.wait();
+    setNewBTMessageState(
+      `🎉 ${newBT} created! Don't forget to record this token address!`
+    );
+    newBTInputRef.current.value = "";
+    BTSymbolInputRef.current.value = "";
+    BTTotalSupplyInputRef.current.value = "";
+    BTBurnAmountInputRef.current.value = "";
+    setNewBTState("");
+    setBTSymbolState("");
+    setBTTotalSupplyState("");
+    setBTBurnAmountState("");
   }
 
   // Call smart contract, fetch current value
@@ -75,12 +169,12 @@ export default function Home() {
     }
 
     if (!PTSymbol) {
-      setPTSymbolMessageState("Please add a token name");
+      setPTSymbolMessageState("Please add a token symbol");
       return;
     }
 
     if (!PTTotalSupply) {
-      setPTTotalSupplyMessageState("Please add a token name");
+      setPTTotalSupplyMessageState("Please add a token supply");
       return;
     }
 
@@ -102,7 +196,9 @@ export default function Home() {
       amount
     );
     await transaction.wait();
-    setNewPTMessageState(`🎉 ${newPT} created!`);
+    setNewPTMessageState(
+      `🎉 ${newPT} created! Don't forget to record this token address!`
+    );
     newPTInputRef.current.value = "";
     PTSymbolInputRef.current.value = "";
     PTTotalSupplyInputRef.current.value = "";
@@ -141,18 +237,21 @@ export default function Home() {
               💩 Shitcoin Playground
             </h1>
             <div className="space-y-8">
+              <h3 className="text-xl font-semibold mb-8">
+                Create Standard ERC20
+              </h3>
               <div className="flex flex-col space-y-4">
                 <input
                   className="border p-4 w-100 text-center"
                   placeholder="👉 Your shitcoin contract address will show here 👈"
-                  value={setPTAddress}
+                  value={setPTAddress.at(-1)}
                   disabled
                 />
                 <button
                   className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-md w-full"
                   onClick={fetchTokenAddress}
                 >
-                  Fetch Shitcoin Contract Address
+                  Fetch Last Shitcoin Contract Address
                 </button>
               </div>
               <div className="space-y-8">
@@ -179,7 +278,7 @@ export default function Home() {
                     className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-md"
                     onClick={setProjectToken}
                   >
-                    Set new greeting on the blockchain
+                    Create Shitcoin on Ropsten Testnet Network
                   </button>
                   <div className="h-2">
                     {newPTMessage && (
@@ -195,6 +294,80 @@ export default function Home() {
                     {PTTotalSupplyMessage && (
                       <span className="text-sm text-gray-500 italic">
                         {PTTotalSupplyMessage}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <hr></hr>
+              <h3 className="text-xl font-semibold mb-8">
+                Create Burnable ERC20
+              </h3>
+              <div className="flex flex-col space-y-4">
+                <input
+                  className="border p-4 w-100 text-center"
+                  placeholder="👉 Your shitcoin contract address will show here 👈"
+                  value={setBTAddress.at(-1)}
+                  disabled
+                />
+                <button
+                  className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-md w-full"
+                  onClick={fetchBurnableTokenAddress}
+                >
+                  Fetch Last Shitcoin Contract Address
+                </button>
+              </div>
+              <div className="space-y-8">
+                <div className="flex flex-col space-y-4">
+                  <input
+                    className="border p-4 text-center"
+                    onChange={(e) => setNewBTState(e.target.value)}
+                    placeholder="ABCToken"
+                    ref={newBTInputRef}
+                  />
+                  <input
+                    className="border p-4 text-center"
+                    onChange={(e) => setBTSymbolState(e.target.value)}
+                    placeholder="ABC"
+                    ref={BTSymbolInputRef}
+                  />
+                  <input
+                    className="border p-4 text-center"
+                    onChange={(e) => setBTTotalSupplyState(e.target.value)}
+                    placeholder="1.02 ETH worth of tokens"
+                    ref={BTTotalSupplyInputRef}
+                  />
+                  <input
+                    className="border p-4 text-center"
+                    onChange={(e) => setBTBurnAmountState(e.target.value)}
+                    placeholder="0.5 ETH worth of token burned"
+                    ref={BTBurnAmountInputRef}
+                  />
+                  <button
+                    className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-md"
+                    onClick={setBurnableToken}
+                  >
+                    Create Shitcoin on Ropsten Testnet Network
+                  </button>
+                  <div className="h-2">
+                    {newBTMessage && (
+                      <span className="text-sm text-gray-500 italic">
+                        {newBTMessage}
+                      </span>
+                    )}
+                    {BTSymbolMessage && (
+                      <span className="text-sm text-gray-500 italic">
+                        {BTSymbolMessage}
+                      </span>
+                    )}
+                    {BTTotalSupplyMessage && (
+                      <span className="text-sm text-gray-500 italic">
+                        {BTTotalSupplyMessage}
+                      </span>
+                    )}
+                    {BTBurnAmountMessage && (
+                      <span className="text-sm text-gray-500 italic">
+                        {BTBurnAmountMessage}
                       </span>
                     )}
                   </div>
