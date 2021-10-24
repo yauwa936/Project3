@@ -288,7 +288,9 @@ In the Constructor of the contract - the Token is created and then the functions
 - Upon transfer an event is emitted, it stores the arguments passed in transaction logs. 
 These logs are stored on blockchain and are accessible using address of the contract till the contract is present on the blockchain.
 
-![Screenshot Upon deploying this contract output](/public/screenshot-buysell.png)
+<kbd>![Screenshot Upon deploying this contract output](/public/screenshot-buysell.png)
+
+  <em>Due to the factor of time limitation, this buy-sell contract is not integrated into the frontend.</em>
 ## Roadmap
 
 - Add a
