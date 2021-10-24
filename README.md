@@ -1,12 +1,19 @@
-# Project3 - Retroactive public goods funding
+# Project3 - Shitcoin Playground
 
-![](https://media.giphy.com/media/26FPLMDDN5fJCir0A/giphy.gif)
+[Link to Live Demo](https://project3-sage.vercel.app/)
+
+[Presentation Slides are Here](./presentationSildes/Presentation%20Is%20Here!.md)
+
+![](./presentationSildes/Screen%20Shot%202021-10-25%20at%209.08.41%20am.png)
 
 ## Design logic
 
 A funding platform where project teams can create funding page, set fund raising
 goals and benchmarks. Eventually, project team can collect raised fund after
 proving they have delivered public goods.
+
+However due to limited time frame we only able to deliver the minimal product
+with feature like create ERC20.
 
 ## Stakeholders
 
@@ -48,30 +55,6 @@ proving they have delivered public goods.
 - [ ] Check current price on Uniswap
 
 ## Run the Dapp in local environment
-
-### First time install
-
-1. cd Dapp
-2. npm install -g truffle
-3. truffle develop
-4. inside truffle develop:
-5. compile
-6. migrate
-7. now create a new terminal
-8. cd Dapp
-9. cd app
-10. yarn install
-11. yarn run start
-
-### After first time install
-
-1. cd Dapp
-2. truffle develop
-3. in new terminal:
-4. cd Dapp
-5. cd app
-6. truffle deploy
-7. yarn run start
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftomhirst%2Fsolidity-nextjs-starter)
 
