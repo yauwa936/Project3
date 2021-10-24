@@ -75,12 +75,12 @@ export default function Home() {
     }
 
     if (!PTSymbol) {
-      setPTSymbolMessageState("Please add a token name");
+      setPTSymbolMessageState("Please add a token symbol");
       return;
     }
 
     if (!PTTotalSupply) {
-      setPTTotalSupplyMessageState("Please add a token name");
+      setPTTotalSupplyMessageState("Please add a token supply");
       return;
     }
 
@@ -102,7 +102,9 @@ export default function Home() {
       amount
     );
     await transaction.wait();
-    setNewPTMessageState(`🎉 ${newPT} created!`);
+    setNewPTMessageState(
+      `🎉 ${newPT} created! Don't forget to record your token address somewhere!`
+    );
     newPTInputRef.current.value = "";
     PTSymbolInputRef.current.value = "";
     PTTotalSupplyInputRef.current.value = "";
@@ -145,14 +147,14 @@ export default function Home() {
                 <input
                   className="border p-4 w-100 text-center"
                   placeholder="👉 Your shitcoin contract address will show here 👈"
-                  value={setPTAddress}
+                  value={setPTAddress[setPTAddress.length - 1]}
                   disabled
                 />
                 <button
                   className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-md w-full"
                   onClick={fetchTokenAddress}
                 >
-                  Fetch Shitcoin Contract Address
+                  Fetch Last Shitcoin Contract Address
                 </button>
               </div>
               <div className="space-y-8">
@@ -179,7 +181,7 @@ export default function Home() {
                     className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-md"
                     onClick={setProjectToken}
                   >
-                    Set new greeting on the blockchain
+                    Create Shitcoin on Ropsten Testnet Network
                   </button>
                   <div className="h-2">
                     {newPTMessage && (
