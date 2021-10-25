@@ -258,7 +258,7 @@ the smart contract that you can view on
 
 ### Solidity Contracts that were developed for **Investor section**
 
-Click [here](https://github.com/yauwa936/Project3/blob/main/contracts/BuySell.sol) to view the code for the Contracts
+Click [here](https://github.com/yauwa936/Project3/blob/main/contracts/BuySell.sol) to view the code for the Contracts and because we had issues integrating this in front end we also attempted [Vendor.sol](https://github.com/yauwa936/Project3/blob/main/contracts/Vendor.sol) and then decided to add that to our future roadmap points.
 
 - Contract BuySell is developed based on two events - **Bought** and **Sold** where an event is an inheritable member of a contract. 
 In the Constructor of the contract - the Token is created and then the functions "buy" and "sell" does the transfer to the corresponding owner and spender address. Before transfer - validation is done if there is enough tokens in the reserve.
