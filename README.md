@@ -256,6 +256,20 @@ All instance of setting a new greeting will now create a transaction attached to
 the smart contract that you can view on
 [Ropsten Etherscan](https://ropsten.etherscan.io/)
 
+### Solidity Contracts that were developed for **Investor section**
+
+Click [here](https://github.com/yauwa936/Project3/blob/main/contracts/BuySell.sol) to view the code for the Contracts
+
+- Contract BuySell is developed based on two events - **Bought** and **Sold** where an event is an inheritable member of a contract. 
+In the Constructor of the contract - the Token is created and then the functions "buy" and "sell" does the transfer to the corresponding owner and spender address. Before transfer - validation is done if there is enough tokens in the reserve.
+
+- Within the functions buy and sell - "Bought" and "Sold" emit takes amount as the parameter for the transfer. 
+- Upon transfer an event is emitted, it stores the arguments passed in transaction logs. 
+These logs are stored on blockchain and are accessible using address of the contract till the contract is present on the blockchain.
+
+<kbd>![Screenshot Upon deploying this contract output](/public/screenshot-buysell.png)
+
+
 ## Roadmap
 
 - Add a
